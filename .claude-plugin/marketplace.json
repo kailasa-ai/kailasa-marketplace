@@ -20,6 +20,12 @@
         "code-review"
       ],
       "homepage": "https://github.com/kailasa-ai/kailasa-marketplace/tree/main/plugins/codex-subagent"
+    },
+    {
+      "name": "database-schema-visualizer",
+      "description": "Build an interactive, explorable database schema map (pan/zoom canvas, per-table detail, search, cluster filtering) from Prisma/Diesel/SQL schemas or design docs, and publish it as an artifact.",
+      "source": "./plugins/database-schema-visualizer",
+      "category": "development"
     }
   ]
 }
