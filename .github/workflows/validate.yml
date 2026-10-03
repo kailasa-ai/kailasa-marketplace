@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 jobs:
-  validate:
+  claude-code:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,7 +16,7 @@ jobs:
       - run: npm install -g @anthropic-ai/claude-code
       - name: Validate marketplace manifest
         run: claude plugin validate . --strict
-      - name: Validate each in-repo plugin
+      - name: Validate each plugin
         run: |
           shopt -s nullglob
           for p in plugins/*/; do
@@ -24,3 +24,36 @@ jobs:
             claude plugin validate "$p" --strict
             echo "::endgroup::"
           done
+
+  codex:
+    runs-on: ubuntu-latest
+    env:
+      CODEX_HOME: ${{ runner.temp }}/codex-home
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install -g @openai/codex
+      - name: Install every plugin into a throwaway Codex home
+        run: |
+          mkdir -p "$CODEX_HOME"
+          codex plugin marketplace add "$GITHUB_WORKSPACE"
+          for name in $(jq -r '.plugins[].name' .claude-plugin/marketplace.json); do
+            codex plugin add "$name@kailasa"
+          done
+          codex plugin list
+      - name: Check Codex agent files
+        run: |
+          python3 - <<'PY'
+          import glob, sys, tomllib
+          bad = 0
+          for f in glob.glob("plugins/*/codex-agents/*.toml"):
+              with open(f, "rb") as fh:
+                  data = tomllib.load(fh)
+              missing = [k for k in ("name", "description", "developer_instructions") if k not in data]
+              if missing:
+                  print(f"::error file={f}::missing required keys: {', '.join(missing)}")
+                  bad = 1
+          sys.exit(bad)
+          PY

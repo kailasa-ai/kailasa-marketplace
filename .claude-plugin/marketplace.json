@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "kailasa",
-  "description": "KAILASA's internal marketplace of Claude Code skills, plugins, agents, commands, hooks and MCP servers.",
+  "description": "KAILASA's internal marketplace of skills, plugins, agents, commands, hooks and MCP servers for Claude Code and Codex.",
   "owner": {
     "name": "KAILASA",
     "url": "https://github.com/kailasa-ai"
@@ -10,13 +10,16 @@
     {
       "name": "codex-subagent",
       "description": "Delegate coding, analysis, and review tasks from Claude Code to OpenAI Codex agents via the codex CLI's headless exec mode, with explicit sandboxing, structured JSON output, and resumable multi-turn threads.",
-      "source": {
-        "source": "github",
-        "repo": "kailasa-ai/codex-subagent-plugin"
-      },
+      "source": "./plugins/codex-subagent",
       "category": "development",
-      "tags": ["codex", "openai", "subagent", "delegation", "code-review"],
-      "homepage": "https://github.com/kailasa-ai/codex-subagent-plugin"
+      "tags": [
+        "codex",
+        "openai",
+        "subagent",
+        "delegation",
+        "code-review"
+      ],
+      "homepage": "https://github.com/kailasa-ai/kailasa-marketplace/tree/main/plugins/codex-subagent"
     }
   ]
 }

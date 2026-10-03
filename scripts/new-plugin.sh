@@ -59,3 +59,4 @@ jq --arg n "$NAME" --arg d "$DESCRIPTION" --arg c "$CATEGORY" \
 
 echo "Created plugins/$NAME and registered it in marketplace.json"
 echo "Next: edit plugins/$NAME/skills/$NAME/SKILL.md, then run: claude plugin validate . --strict"
+echo "Codex agents for this plugin go in plugins/$NAME/codex-agents/*.toml"
