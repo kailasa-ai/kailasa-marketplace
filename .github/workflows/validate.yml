@@ -27,8 +27,6 @@ jobs:
 
   codex:
     runs-on: ubuntu-latest
-    env:
-      CODEX_HOME: ${{ runner.temp }}/codex-home
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -37,6 +35,7 @@ jobs:
       - run: npm install -g @openai/codex
       - name: Install every plugin into a throwaway Codex home
         run: |
+          export CODEX_HOME="$RUNNER_TEMP/codex-home"
           mkdir -p "$CODEX_HOME"
           codex plugin marketplace add "$GITHUB_WORKSPACE"
           for name in $(jq -r '.plugins[].name' .claude-plugin/marketplace.json); do
