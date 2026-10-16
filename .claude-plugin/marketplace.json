@@ -28,6 +28,18 @@
       "category": "development"
     },
     {
+      "name": "push-satsang",
+      "description": "Pre-chunk and upload satsang transcript file(s) into the SPH_Satsangs_v3 vidyakosha dataset",
+      "source": "./plugins/push-satsang",
+      "category": "data",
+      "tags": [
+        "satsang",
+        "vidyakosha",
+        "transcripts",
+        "ingestion"
+      ]
+    },
+    {
       "name": "email-deliverability",
       "description": "Send bulk email through Kailasa Mailer that passes Google's bulk-sender rules, and test and improve Gmail Primary vs Promotions placement, using lessons from a 75-email placement study.",
       "source": "./plugins/email-deliverability",
