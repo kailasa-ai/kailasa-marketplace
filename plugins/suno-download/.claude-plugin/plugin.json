@@ -1,0 +1,9 @@
+{
+  "name": "suno-download",
+  "version": "0.1.0",
+  "description": "Download a Suno song (song link, clip id or cloudfront m4a URL) as a playable MP3 via the public clip API and ffmpeg.",
+  "author": {
+    "name": "KAILASA",
+    "url": "https://github.com/kailasa-ai"
+  }
+}
