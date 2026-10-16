@@ -54,7 +54,7 @@
     },
     {
       "name": "suno-download",
-      "description": "Download a Suno song (song link, clip id or cloudfront m4a URL) as a playable MP3 via the public clip API and ffmpeg.",
+      "description": "Download a Suno song (song link, clip id or cloudfront m4a URL) as a playable MP3 via the public clip API and ffmpeg, with an in-browser playback-capture fallback for clips that have no downloadable video.",
       "source": "./plugins/suno-download",
       "category": "media"
     }
