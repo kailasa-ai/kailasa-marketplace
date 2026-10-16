@@ -38,6 +38,19 @@
         "transcripts",
         "ingestion"
       ]
+    },
+    {
+      "name": "email-deliverability",
+      "description": "Send bulk email through Kailasa Mailer that passes Google's bulk-sender rules, and test and improve Gmail Primary vs Promotions placement, using lessons from a 75-email placement study.",
+      "source": "./plugins/email-deliverability",
+      "category": "marketing",
+      "tags": [
+        "email",
+        "deliverability",
+        "gmail",
+        "bulk-email",
+        "kailasa-mailer"
+      ]
     }
   ]
 }
