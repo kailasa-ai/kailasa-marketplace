@@ -26,6 +26,18 @@
       "description": "Build an interactive, explorable database schema map (pan/zoom canvas, per-table detail, search, cluster filtering) from Prisma/Diesel/SQL schemas or design docs, and publish it as an artifact.",
       "source": "./plugins/database-schema-visualizer",
       "category": "development"
+    },
+    {
+      "name": "push-satsang",
+      "description": "Pre-chunk and upload satsang transcript file(s) into the SPH_Satsangs_v3 vidyakosha dataset",
+      "source": "./plugins/push-satsang",
+      "category": "data",
+      "tags": [
+        "satsang",
+        "vidyakosha",
+        "transcripts",
+        "ingestion"
+      ]
     }
   ]
 }
