@@ -1,0 +1,3 @@
+interface:
+  display_name: "Push Satsang"
+  short_description: "Pre-chunk and upload satsang transcripts to SPH_Satsangs_v3"

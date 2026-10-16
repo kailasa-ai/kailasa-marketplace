@@ -1,0 +1,9 @@
+{
+  "name": "push-satsang",
+  "version": "0.1.0",
+  "description": "Pre-chunk and upload satsang transcript file(s) into the SPH_Satsangs_v3 vidyakosha dataset",
+  "author": {
+    "name": "KAILASA",
+    "url": "https://github.com/kailasa-ai"
+  }
+}
