@@ -1,0 +1,4 @@
+interface:
+  display_name: "Nithyananda AI Blog Writer"
+  short_description: "Write and publish blogs in Nithyananda AI's voice."
+  default_prompt: "Use $nithyananda-ai-blog to turn the supplied satsangs into an assertive, source-grounded Nithyananda AI article with powerful cognitions, working links, and an Ask Nithyananda AI CTA."

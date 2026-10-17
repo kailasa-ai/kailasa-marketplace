@@ -8,6 +8,14 @@
   },
   "plugins": [
     {
+      "name": "nithyananda-ai-blog",
+      "description": "Write and publish source-grounded Nithyananda AI blogs with an assertive first-person voice, powerful satsang cognitions, readable formatting, SEO, and verified publishing.",
+      "source": "./plugins/nithyananda-ai-blog",
+      "category": "marketing",
+      "tags": ["blog", "writing", "nithyananda-ai", "satsang", "seo"],
+      "homepage": "https://github.com/kailasa-ai/kailasa-marketplace/tree/main/plugins/nithyananda-ai-blog"
+    },
+    {
       "name": "codex-subagent",
       "description": "Delegate coding, analysis, and review tasks from Claude Code to OpenAI Codex agents via the codex CLI's headless exec mode, with explicit sandboxing, structured JSON output, and resumable multi-turn threads.",
       "source": "./plugins/codex-subagent",
