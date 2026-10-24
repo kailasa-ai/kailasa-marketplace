@@ -69,6 +69,7 @@ Commit this to a project's `.claude/settings.json`. Anyone who trusts the folder
 | [`nithyananda-ai-blog`](plugins/nithyananda-ai-blog) | Write and publish Nithyananda AI blogs with the approved assertive voice, source-linked powerful cognitions, readable articles, SEO, and verified API publishing | skill | skill |
 | [`codex-subagent`](plugins/codex-subagent) | Delegate tasks from Claude Code to OpenAI Codex agents (headless `codex exec`, sandboxing, resumable threads) | skill + agent | skill only. It's built for driving Codex *from Claude*, but Codex can still use it to start separate sandboxed runs. |
 | [`email-deliverability`](plugins/email-deliverability) | Bulk-email send checklist (Kailasa Mailer, SPF/DKIM/DMARC, Google one-click unsubscribe), what moves Gmail Primary vs Promotions, and a seed-inbox placement-test script | skill | skill |
+| [`capcut-compound-recover`](plugins/capcut-compound-recover) | Find CapCut projects and recover preprocessed compound clips as verified MP4s, without re-encoding | skill | skill |
 
 ## How one repo serves both tools
 

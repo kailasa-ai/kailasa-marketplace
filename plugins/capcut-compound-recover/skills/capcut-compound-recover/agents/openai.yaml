@@ -1,0 +1,4 @@
+interface:
+  display_name: "CapCut Compound Recovery"
+  short_description: "Recover preprocessed CapCut clips as playable MP4s"
+  default_prompt: "Use $capcut-compound-recover to find my CapCut project and copy its preprocessed compound clip as a verified MP4."

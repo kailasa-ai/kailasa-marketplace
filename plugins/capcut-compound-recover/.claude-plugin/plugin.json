@@ -1,0 +1,9 @@
+{
+  "name": "capcut-compound-recover",
+  "version": "0.1.0",
+  "description": "Find CapCut projects and recover preprocessed compound clips from local caches as verified, playable MP4s without re-encoding.",
+  "author": {
+    "name": "KAILASA",
+    "url": "https://github.com/kailasa-ai"
+  }
+}
