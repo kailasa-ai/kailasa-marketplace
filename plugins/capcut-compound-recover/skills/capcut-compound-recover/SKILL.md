@@ -7,6 +7,12 @@ description: Find local CapCut projects and recover their preprocessed compound 
 
 Find the user's project, match its compound clip to its cached render, and produce a verified standalone copy. Prefer the existing render so CapCut's compositing, masks, backgrounds, logos, speed changes, and audio survive intact.
 
+## Platform status
+
+**This workflow has been tested end to end on macOS**, including recovery of a real CapCut compound cache, full video/audio decoding, and a hash-verified destination copy. **Windows execution and export have not been tested on a Windows machine.** The helper includes Windows path discovery, but that is not evidence of a verified Windows export.
+
+On Windows, read [the Windows workflow](references/windows.md). Find the actual CapCut project location on that machine, adapt the paths and shell syntax, and verify recovery/export and the destination copy there. Do not reuse a macOS path or assume that a default Windows cache directory exists. Report Windows success only after those checks pass; until then, describe it as unverified.
+
 ## Locate the clip
 
 Use Python 3.10+, FFmpeg, and FFprobe. The helper uses only Python's standard library and runs locally; no API keys or media uploads are needed.
@@ -15,7 +21,7 @@ Use Python 3.10+, FFmpeg, and FFprobe. The helper uses only Python's standard li
 python3 "${CLAUDE_PLUGIN_ROOT}/skills/capcut-compound-recover/scripts/capcut_cache.py" list --project "PROJECT NAME"
 ```
 
-The locator checks the usual macOS and Windows project roots. Supply `--root "/custom/Projects/com.lveditor.draft"` if the user stores projects elsewhere. A missing result does not prove no project exists: inspect CapCut's configured project folder or search the filesystem for the named folder before asking the user.
+The locator checks the usual macOS and Windows project roots. These are discovery candidates, not guaranteed locations. Supply `--root "/custom/Projects/com.lveditor.draft"` if the user stores projects elsewhere. A missing result does not prove no project exists: inspect CapCut's configured project folder or search the filesystem for the named folder before asking the user.
 
 Inspect `draft_meta_info.json` for the exact project name and ID. Inspect the active `draft_info.json` and `materials.drafts[].combination_id` to match the named compound clip to:
 
