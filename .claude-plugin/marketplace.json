@@ -65,6 +65,19 @@
       "description": "Download a Suno song (song link, clip id or cloudfront m4a URL) as a playable MP3 via the public clip API and ffmpeg, with an in-browser playback-capture fallback for clips that have no downloadable video.",
       "source": "./plugins/suno-download",
       "category": "media"
+    },
+    {
+      "name": "capcut-compound-recover",
+      "description": "Find CapCut projects and recover preprocessed compound clips from local caches as verified, playable MP4s without re-encoding.",
+      "source": "./plugins/capcut-compound-recover",
+      "category": "media",
+      "tags": [
+        "capcut",
+        "video",
+        "compound-clip",
+        "cache-recovery"
+      ],
+      "homepage": "https://github.com/kailasa-ai/kailasa-marketplace/tree/main/plugins/capcut-compound-recover"
     }
   ]
 }

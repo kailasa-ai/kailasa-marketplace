@@ -6,6 +6,20 @@ on:
     branches: [main]
 
 jobs:
+  capcut-compound-recover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install FFmpeg for generated-media recovery tests
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+      - name: Test compound cache recovery and preservation
+        run: python -m unittest discover -s plugins/capcut-compound-recover/tests -v
+
   claude-code:
     runs-on: ubuntu-latest
     steps:
