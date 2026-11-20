@@ -45,7 +45,7 @@ Playbooks in `~/.kailasa/standards/playbooks/` (load only when relevant):
 - **G6. Never `git stash`** (shared across worktrees and agents). Never `--no-verify`. `--force-with-lease` only, and only on your own branch.
 - **G7. Commits: Conventional Commits with a scope,** e.g. `fix(chat): keep draft on account switch`. Subject describes the user-visible effect in plain language. A ticket ID goes in the scope or body when one exists.
 - **G8. AI attribution.** Every agent-written commit ends with a `Co-Authored-By:` trailer for the model that wrote it (Claude or Codex); every agent-opened PR ends with a "Generated with …" footer.
-- **G9. Before promoting `dev → main`,** run `git log origin/main..origin/dev` and stop to ask if there are commits you don't recognise.
+- **G9. Before promoting `dev → main`,** check both directions (`origin/main..origin/dev` and `origin/dev..origin/main`): stop to ask about commits you don't recognise, and sync `main` into `dev` first if `main` has commits `dev` lacks. Promotion and sync PRs use a merge commit, not squash.
 - **G10. `git fetch` and compare with origin** before trusting any local checkout's state.
 
 ## 4. Verification  → `playbooks/verification.md`

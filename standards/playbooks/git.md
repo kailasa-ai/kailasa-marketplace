@@ -31,9 +31,15 @@ Conventional Commit types: feat, fix, chore, refactor, docs, test, perf, ci. Sco
 4. Do not merge without the user's go-ahead. Merges are **squash**, titled `<conventional subject> (#PR)`.
 
 ## Promote dev → main
-1. `git fetch && git log --oneline origin/main..origin/dev`. If there are commits you don't recognise, stop and ask.
+1. `git fetch`, then check **both directions**:
+   - `git log --oneline origin/main..origin/dev`: what will ship. If there are commits you don't recognise, stop and ask.
+   - `git log --oneline origin/dev..origin/main`: commits merged straight into `main`. If there are any, first sync `main` into `dev` with a PR (`chore/sync-main-into-dev`), resolve conflicts there, and merge it.
 2. Full test suite (V3) + independent cross-family review (D3).
-3. Open the promotion PR; merge only with a yes; deploy per `deploy-and-prod.md`.
+3. Open the promotion PR (`dev` → `main`); merge only with a yes; deploy per `deploy-and-prod.md`.
+
+**Merge method:** feature PRs into `dev` are squashed (G5). Promotion (`dev → main`) and sync (`main → dev`) PRs use a **merge commit**, never squash. Squashing them breaks the shared history, and the next promotion conflicts.
+
+**`main` is not protected on GitHub** (the org's plan doesn't allow branch protection on private repos). Nothing stops a direct push or a feature PR into `main`, so agents enforce G2 themselves. If you notice commits that reached `main` without a promotion, tell the user.
 
 ## Never
 `--no-verify`; plain `--force`; pushing to `dev`/`main`; rewriting someone else's branch; committing `.env*`, keys or build artifacts.
