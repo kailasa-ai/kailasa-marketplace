@@ -1,6 +1,8 @@
 # Servers playbook
 
-Load when working on a remote server. SSH aliases are in ~/.ssh/config on the owner's Mac.
+Only for people who have been given access to these hosts. Load when working on one of them.
+
+**Access is not assumed.** The aliases below are the names used in the owner's `~/.ssh/config`; yours may differ or not exist. Check `~/.ssh/config` and test with `ssh -o BatchMode=yes <alias> true`. If you have no access, stop and tell the requester. Never look for, copy or guess credentials or keys.
 
 Audit basis: read-only SSH snapshot of 2026-11-20. Re-verify before acting (S10). Approval and deploy steps live in `deploy-and-prod.md` (S6-S11); this file only adds per-host facts.
 

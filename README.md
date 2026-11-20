@@ -197,7 +197,7 @@ Install for the current user (links `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.m
 
 ```bash
 scripts/install-standards.sh                                   # from this clone
-scripts/install-standards.sh --push <host> [<host>...]          # copy to servers over SSH (re-run after every change)
+scripts/install-standards.sh --push <host> [<host>...]          # maintainers only: copy to servers you have SSH access to
 ```
 
 To change a rule, open a PR here. Repo-specific rules belong in that repo's `AGENTS.md`, not here.
