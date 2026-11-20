@@ -10,7 +10,7 @@ CLAUDE.md          a single line: @AGENTS.md (+ Claude-only notes, if any)
 .claude/rules/     optional path-scoped rules (Claude only, so never put safety-critical rules only here)
 docs/              architecture, runbooks, post-mortems: things read on demand
 ```
-Start from `templates/repo-AGENTS.md`. Keep the root AGENTS.md under ~150 lines; move route trees, directory maps and incident write-ups to `docs/` and link to them.
+Start from `~/.kailasa/standards/templates/repo-AGENTS.md`. Keep the root AGENTS.md under ~150 lines; move route trees, directory maps and incident write-ups to `docs/` and link to them.
 
 ## What goes where
 | Fact | Home |

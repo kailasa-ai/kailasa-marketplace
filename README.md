@@ -191,7 +191,7 @@ CI (`.github/workflows/validate.yml`) runs on every PR and every push to `main`.
 
 - `standards/AGENTS.md`: the master rules (always loaded). `standards/CLAUDE.md` imports it and adds the Claude-only notes.
 - `standards/playbooks/`: delegation, git, verification, deploy/prod, servers, repo docs. Agents load these on demand.
-- `templates/repo-AGENTS.md` + `templates/repo-CLAUDE.md`: the starting point for a repo's own docs.
+- `standards/templates/repo-AGENTS.md` + `repo-CLAUDE.md`: the starting point for a repo's own docs.
 
 Install for the current user (links `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`, and backs up any existing non-empty files first):
 
