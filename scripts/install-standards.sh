@@ -1,29 +1,33 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_URL="git@github.com:kailasa-ai/kailasa-marketplace.git"
-KHOME="$HOME/.kailasa"
+SRC="$(cd "$(dirname "$0")/.." && pwd)"
 STAMP="$(date +%Y%m%d-%H%M%S)"
 
-if [[ "${1:-}" == "--remote" ]]; then
-  SRC="$KHOME/kailasa-marketplace"
-  if [[ -d "$SRC/.git" ]]; then git -C "$SRC" pull --ff-only -q; else git clone -q "$REPO_URL" "$SRC"; fi
-else
-  SRC="$(cd "$(dirname "$0")/.." && pwd)"
-fi
-
-mkdir -p "$KHOME" "$HOME/.claude" "$HOME/.codex"
-ln -sfn "$SRC/standards" "$KHOME/standards"
-
-link() {
-  local target="$1" dest="$2"
-  if [[ -e "$dest" && ! -L "$dest" && -s "$dest" ]]; then
-    mv "$dest" "$dest.pre-standards-$STAMP"
-    echo "backed up $dest -> $dest.pre-standards-$STAMP"
-  fi
-  ln -sfn "$target" "$dest"
-  echo "linked $dest -> $target"
+link_all() {
+  local khome="$HOME/.kailasa" stamp="$1"
+  mkdir -p "$HOME/.claude" "$HOME/.codex"
+  for pair in "standards/CLAUDE.md:.claude/CLAUDE.md" "standards/AGENTS.md:.codex/AGENTS.md"; do
+    local target="$khome/${pair%%:*}" dest="$HOME/${pair##*:}"
+    if [[ -e "$dest" && ! -L "$dest" && -s "$dest" ]]; then
+      mv "$dest" "$dest.pre-standards-$stamp"
+      echo "backed up $dest -> $dest.pre-standards-$stamp"
+    fi
+    ln -sfn "$target" "$dest"
+    echo "linked $dest -> $target"
+  done
 }
 
-link "$KHOME/standards/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
-link "$KHOME/standards/AGENTS.md" "$HOME/.codex/AGENTS.md"
+if [[ "${1:-}" == "--push" ]]; then
+  shift
+  for host in "$@"; do
+    echo "== $host"
+    git -C "$SRC" archive --format=tar HEAD standards | ssh -o BatchMode=yes "$host" \
+      'rm -rf ~/.kailasa/standards.new && mkdir -p ~/.kailasa/standards.new && tar -C ~/.kailasa/standards.new --strip-components=1 -xf - && rm -rf ~/.kailasa/standards && mv ~/.kailasa/standards.new ~/.kailasa/standards'
+    ssh -o BatchMode=yes "$host" "bash -s -- $STAMP" < <(declare -f link_all; echo 'link_all "$1"')
+  done
+else
+  mkdir -p "$HOME/.kailasa"
+  ln -sfn "$SRC/standards" "$HOME/.kailasa/standards"
+  link_all "$STAMP"
+fi
