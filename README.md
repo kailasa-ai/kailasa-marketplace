@@ -184,3 +184,20 @@ CI (`.github/workflows/validate.yml`) runs on every PR and every push to `main`.
 - validates the catalog and every plugin with Claude Code
 - installs every plugin into a throwaway Codex home
 - checks that each Codex agent file has the required keys
+
+## Agent standard
+
+`standards/` holds the KAILASA agent standard: the rules every Claude Code and Codex agent follows on every machine and repo.
+
+- `standards/AGENTS.md`: the master rules (always loaded). `standards/CLAUDE.md` imports it and adds the Claude-only notes.
+- `standards/playbooks/`: delegation, git, verification, deploy/prod, servers, repo docs. Agents load these on demand.
+- `templates/repo-AGENTS.md` + `templates/repo-CLAUDE.md`: the starting point for a repo's own docs.
+
+Install for the current user (links `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`, and backs up any existing non-empty files first):
+
+```bash
+scripts/install-standards.sh                                   # from this clone
+ssh <host> 'bash -s -- --remote' < scripts/install-standards.sh   # on a server (clones into ~/.kailasa)
+```
+
+To change a rule, open a PR here. Repo-specific rules belong in that repo's `AGENTS.md`, not here.
