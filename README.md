@@ -197,7 +197,7 @@ Install for the current user (links `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.m
 
 ```bash
 scripts/install-standards.sh                                   # from this clone
-ssh <host> 'bash -s -- --remote' < scripts/install-standards.sh   # on a server (clones into ~/.kailasa)
+scripts/install-standards.sh --push <host> [<host>...]          # copy to servers over SSH (re-run after every change)
 ```
 
 To change a rule, open a PR here. Repo-specific rules belong in that repo's `AGENTS.md`, not here.
