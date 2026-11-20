@@ -24,7 +24,7 @@ To convert:
 - **N-Pedia** (`npedia:/opt/n-pedia/CLAUDE.md`): still documents Payload/Astro/pnpm, but the live stack is Bun/TanStack.
 - **causing_portal** (on the servers): an old `/root/kailasa/causing_portal/CLAUDE.md`, plus GEMINI/QWEN stubs that describe MySQL/Keycloak. The "Never use Opus" and "never push without permission" lines → remove them (D2, G3).
 - **lokh-sabha, nandi-rs**: Windows-path allow rules in `settings.local.json`.
-- **No agent docs at all**: jnanalaya, kailasa-calls, nandi-rs, nithyananda-tv*, punya-portal, GemOCR, swamiji-tts. Create a minimal AGENTS.md for each from `templates/repo-AGENTS.md`.
+- **No agent docs at all**: jnanalaya, kailasa-calls, nandi-rs, nithyananda-tv*, punya-portal, GemOCR, swamiji-tts. Create a minimal AGENTS.md for each from `~/.kailasa/standards/templates/repo-AGENTS.md`.
 
 ## C. Branch migration (G0: dev → main)
 - causing_portal, N-Pedia: `master` → `main` (+ create `dev`).
