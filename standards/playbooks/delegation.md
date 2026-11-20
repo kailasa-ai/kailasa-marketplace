@@ -36,4 +36,4 @@ codex exec --skip-git-repo-check -s workspace-write -C <worktree> \
 - Verify every finding before acting on it; reviewers are confidently wrong sometimes.
 
 ## Overrides
-The user may say "no Codex until 10 AM" or "build it yourself today". Follow the override until the stated time, then return to the default. If Codex is out of credits, fall back to Claude subagents without asking (D5).
+The user may say "no Codex until 10 AM" or "build it yourself today". Follow the override until the stated time, then return to the default. If Codex isn't installed or is out of credits, fall back to Claude subagents without asking (D5).

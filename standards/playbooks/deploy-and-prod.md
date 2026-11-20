@@ -2,6 +2,8 @@
 
 Load before any deploy, migration, production query or user-reaching action.
 
+**Access varies by person.** If you don't have access to the target (Dokploy, the host, the store console, the database), get as far as "prepared" (branch, backup plan, exact steps) and hand off to someone who does (W0).
+
 ## Approval matrix
 | Action | DEV | PROD |
 |---|---|---|
@@ -11,15 +13,15 @@ Load before any deploy, migration, production query or user-reaching action.
 | Bulk send (email/SMS/push/WhatsApp) | Test audience only | Yes required; freeze the audience first |
 | Store upload (TestFlight/Play internal) | n/a | After the user approves in the simulator |
 | Go live / production track / withdraw a build | n/a | Separate explicit yes |
-| DNS | Owner does it | Owner does it |
+| DNS | Whoever owns the domain | Whoever owns the domain |
 
 An approval covers the action it was given for, not the next one.
 
 ## Deploy steps (S6, S7)
 1. Confirm the target: host, environment, Dokploy project, and the running containers' compose labels (S10).
-2. Take the host deploy lock (e.g. `/root/soma-deploy.lock` on SOMA prod). If someone else holds it, stop and ask.
+2. Take the host deploy lock named in the repo's docs, if there is one. If someone else holds it, stop and ask.
 3. Back up the database yourself if there is any migration (S8).
-4. Deploy through Dokploy from `main` (PROD) or `dev` (DEV). Use SSH only for what Dokploy can't do, and say so.
+4. Deploy through Dokploy (or the repo's documented mechanism) from `main` (PROD) or `dev` (DEV). Use SSH only for what Dokploy can't do, and say so.
 5. No merges to `main` while a deploy is running.
 6. Stop services gracefully (`docker stop -t 90`); never `kill`.
 7. Never run a second instance of a stateful worker against PROD (e.g. a second dhi).

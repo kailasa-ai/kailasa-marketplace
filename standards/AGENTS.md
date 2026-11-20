@@ -6,12 +6,13 @@ truth: `CLAUDE.md` only imports it. Repo files (`<repo>/AGENTS.md`) add repo-spe
 rules and **win on conflicts** about that repo; this file wins on safety (§5, §6).
 
 Playbooks in `~/.kailasa/standards/playbooks/` (load only when relevant):
-`delegation.md` · `git.md` · `verification.md` · `deploy-and-prod.md` · `servers.md` · `repo-docs.md`
+`delegation.md` · `git.md` · `verification.md` · `deploy-and-prod.md` · `repo-docs.md` · `servers.md` (only if you have access to KAILASA servers)
 
 ---
 
 ## 1. How to work
 
+- **W0. Check access; never assume it.** People and machines have different access (servers, SSH aliases, Dokploy, store consoles, prod databases, Codex, MCP tools). Check what this machine and user actually have (`~/.ssh/config`, installed CLIs, env, tool list) before planning around it. If a task needs access you don't have, say so and hand the requester a ready-to-run plan. Never hunt for, borrow or guess credentials.
 - **W1. Do exactly what was asked.** No extra features, refactors, or "improvements". Never re-add something the user removed; if it seems needed, ask.
 - **W2. Plan first for non-trivial work.** If the user says "plan only" or "don't start yet", produce the plan and stop.
 - **W3. Honour holds and gates literally.** "Don't merge", "don't start phase 2", "only analyze" stay in force until the user lifts them. Time-boxed overrides ("no Codex till 10 AM") expire at the stated time.
@@ -22,15 +23,15 @@ Playbooks in `~/.kailasa/standards/playbooks/` (load only when relevant):
 
 ## 2. Delegation and models  → `playbooks/delegation.md`
 
-- **D1. The main session orchestrates and verifies.** Heavy, long or mechanical work goes to Codex CLI or cheaper subagents. The main session writes the scoped brief, reviews the diff, runs verification, and reports.
+- **D1. The main session orchestrates and verifies.** Heavy, long or mechanical work goes to Codex CLI (where installed) or cheaper subagents. The main session writes the scoped brief, reviews the diff, runs verification, and reports.
 - **D2. Cheapest tier that can do the job, always the latest model of that tier** (check the model list; never hardcode model IDs in docs).
   - mechanical / lookup → smallest tier (Haiku, Codex low tier)
   - routine, well-specified change → mid tier (Sonnet, Codex mid tier)
   - hard design, tricky debugging, final judging → top tier (Opus, Codex top tier)
   - Repos must not ban a tier outright.
-- **D3. Independent review by the other model family before anything reaches `main`.** Every `dev → main` promotion and release gets a Codex review (Claude-written code) or a Claude review (Codex-written code). On everyday PRs to `dev` it is optional unless the user asks.
+- **D3. Independent review by the other model family before anything reaches `main`.** Every `dev → main` promotion and release gets a Codex review (Claude-written code) or a Claude review (Codex-written code). If only one family is available, use a fresh-context reviewer subagent and say so. On everyday PRs to `dev` it is optional unless the user asks.
 - **D4. A review that didn't run is not a clean review.** Empty output, out-of-credits or a missing result file = "review not done". Say so.
-- **D5. Fallback.** If Codex is unavailable or out of credits, continue with Claude subagents; don't stop to ask.
+- **D5. Fallback.** If Codex isn't installed, is unavailable or is out of credits, continue with Claude subagents; don't stop to ask.
 - **D6. One owner per worktree.** Never let two agents edit the same worktree or race the same task.
 
 ## 3. Git  → `playbooks/git.md`
@@ -63,17 +64,17 @@ Playbooks in `~/.kailasa/standards/playbooks/` (load only when relevant):
 Ask first and wait for an explicit yes before:
 - **S1.** Store actions that reach users: TestFlight/Play upload (only after the user approves in a local simulator), going live, Android production track, withdrawing a build in review.
 - **S2.** Any production DB mutation, production data deletion, or bulk send (email/SMS/push/WhatsApp).
-- **S3.** Anything outward-facing or irreversible: messages to real people, app-review requests, DNS (the owner does DNS), spending money, rotating/revoking credentials.
+- **S3.** Anything outward-facing or irreversible: messages to real people, app-review requests, DNS changes (done by whoever owns the domain), spending money, rotating/revoking credentials.
 
 Standing rules:
 - **S4. Production is read-only by default.** Read-only diagnosis (`SET default_transaction_read_only=on`) is fine; writes need S2.
 - **S5. Never copy production user data into DEV** or test runners.
-- **S6. Who deploys:** agents deploy **DEV** on their own. For **PROD** the agent prepares everything (branch, migration plan, backup, exact steps) and runs it **only after an explicit yes** in the current conversation, then watches logs/health until stable.
-- **S7. How to deploy:** via Dokploy; SSH only for what Dokploy can't do (say so). Take the host deploy lock, deploy from `main`, no merges to `main` during a deploy, graceful stops (`docker stop -t 90`, never kill).
+- **S6. Who deploys:** agents deploy **DEV** on their own, where the user has deploy access. For **PROD** the agent prepares everything (branch, migration plan, backup, exact steps) and runs it **only after an explicit yes** in the current conversation, then watches logs/health until stable. If the user has no PROD access, the agent hands the prepared steps to someone who does.
+- **S7. How to deploy:** via Dokploy where the project uses it; SSH only for what Dokploy can't do (say so). Take the host deploy lock, deploy from `main`, no merges to `main` during a deploy, graceful stops (`docker stop -t 90`, never kill).
 - **S8. Back up before migrations** yourself; don't rely on automated backups.
 - **S9. On uncertain outcomes, don't retry sends or deploys blindly**; establish what happened first.
 - **S10. Confirm the target before touching a server:** host, environment, checkout, and the container labels actually running. A container name alone doesn't prove the environment.
-- **S11. Shared machines:** respect machine reservations (e.g. "don't use mac6 till 12 PM"); wrap heavy builds in the host's heavy-job semaphore where one exists.
+- **S11. Shared machines:** respect reservations announced by whoever runs a shared machine; wrap heavy builds in the host's heavy-job semaphore where one exists.
 
 ## 6. Secrets
 
